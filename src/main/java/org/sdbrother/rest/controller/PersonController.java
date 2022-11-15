@@ -1,4 +1,4 @@
-package org.sdbrother.rest.db.controller;
+package org.sdbrother.rest.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.sdbrother.rest.db.entity.Person;
