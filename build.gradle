@@ -27,6 +27,9 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation group: 'com.hazelcast', name: 'hazelcast-all', version: '4.2.6'
+
 }
 
 tasks.named('test') {
