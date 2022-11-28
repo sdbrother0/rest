@@ -5,6 +5,7 @@ import org.sdbrother.rest.db.entity.Person;
 import org.sdbrother.rest.db.repository.PersonRepository;
 import org.sdbrother.rest.service.PersonService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,7 +17,20 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping("/person")
-    List<Person> getPerson() {
+    public List<Person> getPerson() {
         return personService.findAll();
     }
+
+    @GetMapping("/person/{id}")
+    public Person getPerson(@PathVariable Long id) {
+        return personService.findById(id);
+    }
+
+    @GetMapping("/evict/{id}")
+    public String evict(@PathVariable Long id) {
+        personService.evict(id);
+        return "evict " + id;
+    }
+
+
 }
