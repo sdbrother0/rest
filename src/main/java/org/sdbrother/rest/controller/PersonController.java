@@ -1,8 +1,8 @@
 package org.sdbrother.rest.controller;
 
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.sdbrother.rest.db.entity.Person;
-import org.sdbrother.rest.db.repository.PersonRepository;
 import org.sdbrother.rest.service.PersonService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +19,11 @@ public class PersonController {
     @GetMapping("/person")
     public List<Person> getPerson() {
         return personService.findAll();
+    }
+
+    @GetMapping("/persons")
+    public Collection<Object> getPersons() {
+        return personService.getAll();
     }
 
     @GetMapping("/person/{id}")
