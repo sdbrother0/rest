@@ -1,8 +1,9 @@
 package org.sdbrother.rest.controller;
 
 import java.util.Collection;
+
 import lombok.RequiredArgsConstructor;
-import org.sdbrother.rest.db.entity.Person;
+import org.sdbrother.rest.dto.response.PersonDto;
 import org.sdbrother.rest.service.PersonService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,7 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping("/person")
-    public List<Person> getPerson() {
+    public List<PersonDto> getPerson() {
         return personService.findAll();
     }
 
@@ -27,7 +28,7 @@ public class PersonController {
     }
 
     @GetMapping("/person/{id}")
-    public Object getPerson(@PathVariable Long id) {
+    public PersonDto getPerson(@PathVariable Long id) {
         return personService.findById(id);
     }
 
