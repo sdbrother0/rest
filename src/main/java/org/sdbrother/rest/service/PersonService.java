@@ -16,13 +16,14 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 @Log4j2
-@CacheConfig(cacheNames = "persons")
+//@CacheConfig(cacheNames = "persons")
 public class PersonService {
 
     private final PersonRepository personRepository;
@@ -31,16 +32,21 @@ public class PersonService {
 
     private final ModelMapper modelMapper;
 
-    public List<PersonDto> findAll() {
+    private List<Person> personList;
+
+    @PostConstruct
+    public void init() {
         hazelcastInstance.getMap("persons").addIndex(IndexType.HASH, "firstname");
-        List<Person> personList = personRepository.findAll();
+        personList = personRepository.findAll();
         Cache cache = cacheManager.getCache("persons");
         personList
                 .stream()
                 .forEach(person -> {
                     cache.put(person.getId(), modelMapper.map(person, PersonDto.class));
                 });
+    }
 
+    public List<PersonDto> findAll() {
         return  personList
                 .stream()
                 .map(element -> modelMapper.map(element, PersonDto.class))
