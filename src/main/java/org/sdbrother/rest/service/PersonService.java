@@ -46,13 +46,6 @@ public class PersonService {
                 });
     }
 
-    public List<PersonDto> findAll() {
-        return  personList
-                .stream()
-                .map(element -> modelMapper.map(element, PersonDto.class))
-                .collect(Collectors.toList());
-    }
-
     public Collection<Object> getAll() {
         return hazelcastInstance.getMap("persons").values();
     }

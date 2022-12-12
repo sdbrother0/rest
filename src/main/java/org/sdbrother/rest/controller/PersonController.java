@@ -17,11 +17,6 @@ public class PersonController {
 
     private final PersonService personService;
 
-    @GetMapping("/person")
-    public List<PersonDto> getPerson() {
-        return personService.findAll();
-    }
-
     @GetMapping("/persons")
     public Collection<Object> getPersons() {
         return personService.getAll();
